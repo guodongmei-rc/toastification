@@ -284,7 +284,6 @@ class Toastification {
         closeButtonShowType != closeButton.showType) {
       toastCloseButton = closeButton.copyWith(showType: closeButtonShowType);
     }
-
     return showCustom(
       context: context,
       overlayState: overlayState,
@@ -295,7 +294,11 @@ class Toastification {
       animationDuration: animationDuration,
       callbacks: callbacks,
       builder: (context, holder) {
-        return BuiltInBuilder(
+        return Transform.translate(
+            offset: Offset(translateOffsetX ?? 0.0, translateOffsetY ?? 0.0),
+            child: Transform.rotate(
+                angle: (rotateAngle ?? 0.0) * (3.14159265359 / -180),
+                child: BuiltInBuilder(
           item: holder,
           type: type,
           style: style,
@@ -321,10 +324,7 @@ class Toastification {
           pauseOnHover: pauseOnHover,
           applyBlurEffect: applyBlurEffect,
           callbacks: callbacks,
-          translateOffsetX: translateOffsetX,
-          translateOffsetY: translateOffsetY,
-          rotateAngle: rotateAngle,
-        );
+                )));
       },
     );
   }
